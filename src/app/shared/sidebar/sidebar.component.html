@@ -1,0 +1,9 @@
+<ul class="list-group nav">
+  <li >
+      <a class="list-group-item"
+          *ngFor="let item of menuItems"
+          (click)="search($event)">
+        <span class="ml-3">{{item.label}}</span>
+      </a>
+  </li>
+</ul>

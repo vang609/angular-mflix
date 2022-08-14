@@ -1,0 +1,45 @@
+img {
+  border-radius: 8px;
+  width: 268px;
+  height: 402px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+h6 {
+  color: rgb(188, 10, 10) !important;
+}
+
+card-text-genre {
+  color: rgb(233, 232, 232) !important;
+  font-weight: 800 !important;
+  padding-left: 3px !important;
+}
+
+#rating {
+  background: blue;
+  border-radius: 20px;
+  height: 28px;
+  margin-top: 5px;
+  padding-top: 3px;
+  text-align: center;
+  width: 100px;
+}

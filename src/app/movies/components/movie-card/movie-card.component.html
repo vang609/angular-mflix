@@ -1,0 +1,20 @@
+ <div>
+      <img [src]="movie.poster" [alt]="movie.title" class="card-img-top" (error)="pictNotLoading($event)" (click)="showDetails(movie._id)"/>
+      <div class="card-body">
+        <ul>
+          <li *ngFor="let genre of movie.genres ; last as isLast">
+             <span *ngIf="!isLast" class="card-text-genre">{{ genre }} |</span>
+             <span *ngIf="isLast" class="card-text-genre">{{ genre }} </span>
+          </li>
+        </ul>
+
+        <ul>
+          <li *ngFor="let language of movie.languages ; last as isLast">
+            <div *ngIf="language">
+              <span *ngIf="!isLast"><h6 class="card-text ">{{ language }} |</h6> </span>
+              <span *ngIf="isLast"><h6 class="card-text">{{ language }} </h6> </span>
+            </div>
+          </li>
+        </ul>
+        <div id="rating">{{ movie.imdb?.rating }} / {{movie.imdb?.votes}}</div>
+  </div>

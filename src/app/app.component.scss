@@ -1,0 +1,13 @@
+.sidebar {
+  width: 160px;
+  /* &.expanded {
+    width: 160px;
+  } */
+  background-color: black;
+}
+
+.over-flow {
+  overflow-y: scroll;
+  height: 100vh;
+}
+
