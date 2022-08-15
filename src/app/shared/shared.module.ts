@@ -16,6 +16,7 @@ import { MenuIconNavbarComponent } from './menu-icon-navbar/menu-icon-navbar.com
   exports: [
     MenuHeaderComponent,
     SidebarComponent,
+    MenuIconNavbarComponent
   ],
   imports: [
     CommonModule,

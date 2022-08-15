@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Movie } from '../interfaces/movie';
 import { movie_mocks } from '../../../assets/jsons/movie_mocks';
 import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import * as actions from '../../store/movie.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,7 @@ export class MovieService {
   toggle = this.sbToggle.asObservable();
 
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
     movie_mocks.map((item) => {
       const {
          fullplot,
@@ -67,14 +70,17 @@ export class MovieService {
     return movie!;
   }
 
-
   setGenres(genres: string) {
     this.sbGenres.next(genres);
   }
 
-  setToggle(isToggle: boolean) {
-    this.sbToggle.next(isToggle);
-  }
+  fillMovies() {
+    this.store.subscribe( ({ genre }) => {
+      if(!genre) return;
 
+      this.movies = genre.toLocaleUpperCase() === 'ALL'? this.getMovies() : this.getMoviesByGenres(genre);
+     });
+    this.store.dispatch(actions.setMovies({ movies: this.movies }));
+  }
 
 }

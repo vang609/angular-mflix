@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuFlagsService } from 'src/app/movies/services/menu-flags.service';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as actions from '../../store/toggle.actions';
 
 @Component({
   selector: 'app-menu-icon-navbar',
@@ -14,21 +17,27 @@ export class MenuIconNavbarComponent implements OnInit {
   sbShowSidebar!: Subscription;
   sbClickLink!: Subscription;
 
-  constructor(private menuFlagsService: MenuFlagsService) { }
+  constructor(private menuFlagsService: MenuFlagsService, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.sbShowSidebar = this.menuFlagsService.isClickLink.subscribe(isClickLink => {
-      if(isClickLink){
-        this.menuFlagsService.setShowSidebar(false);
-        this.menuBar.nativeElement.classList.toggle("change");
-      }
+      if(isClickLink) this.onToogleSidebar();
     });
+  }
+
+  onToogleSidebar() {
+    this.store.subscribe( ({ toogle }) => {
+      if(!toogle) {
+        let classList = this.menuBar.nativeElement.classList;
+        if(classList.length === 2) this.menuBar.nativeElement.classList.toggle("change");
+      }
+     });
   }
 
   onHandleToggle() {
     this.menuBar.nativeElement.classList.toggle("change");
     const isSidebar = this.menuBar.nativeElement.classList.length === 2 ? true : false;
-    this.menuFlagsService.setShowSidebar(isSidebar);
+    this.store.dispatch( actions.switchToggle({ isToggle: isSidebar }) );
     this.menuFlagsService.setClickLink(false);
   }
 

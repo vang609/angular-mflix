@@ -13,7 +13,7 @@
   <div class="col-3" *ngIf="isToggle">
     <app-sidebar></app-sidebar>
   </div>
-  <div class=" over-flow"  [ngClass]="isToggle ? 'col-9' : 'col-12'">
+  <div [ngClass]="isToggle ? 'col-9' : 'col-12'">
     <router-outlet></router-outlet>
   </div>
 </div>

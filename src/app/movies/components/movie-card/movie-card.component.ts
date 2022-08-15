@@ -17,7 +17,6 @@ export class MovieCardComponent implements OnInit {
   }
 
   pictNotLoading(event: any) {
-    console.log('event', event);
     event.target.src = '../../../../assets/img/Image-not-available.png';
   }
 

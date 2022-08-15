@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { MenuFlagsService } from 'src/app/movies/services/menu-flags.service';
 import { MovieService } from 'src/app/movies/services/movie.service';
 import { MenuItem } from '../../movies/interfaces/movie';
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import * as actions from '../../store/toggle.actions';
+import * as actionsGenre from '../../store/genre.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +19,12 @@ export class SidebarComponent implements OnInit {
   genres: string = 'All';
 
 
-  constructor(private movieService: MovieService, private menuFlagsService: MenuFlagsService, private router: Router) { }
+  constructor(
+              private movieService: MovieService,
+              private menuFlagsService: MenuFlagsService,
+              private router: Router,
+              private store: Store<AppState>
+              ) { }
 
   ngOnInit(): void {
 
@@ -43,8 +52,11 @@ export class SidebarComponent implements OnInit {
 
 
   search( event: any  ) {
-    this.movieService.setGenres(event.target.textContent.toString());
+    const genre = event.target.textContent.toString();
+    this.store.dispatch( actions.switchToggle({ isToggle: false }) );
+    this.store.dispatch( actionsGenre.setGenre({ genre: genre }) );
     this.menuFlagsService.setClickLink(true);
+    this.movieService.fillMovies();
     this.router.navigate(['/movies']);
   }
 

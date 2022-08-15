@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AppState } from './app.reducer';
 import { MenuFlagsService } from './movies/services/menu-flags.service';
 
 @Component({
@@ -8,17 +10,23 @@ import { MenuFlagsService } from './movies/services/menu-flags.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'angular-mflix-001';
+  title = 'Angular-NFLIX';
   isToggle!: boolean;
   subscriptionToggle!: Subscription;
 
 
-  constructor(private menuFlagsService: MenuFlagsService) { }
+  constructor(private menuFlagsService: MenuFlagsService, private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.subscriptionToggle = this.menuFlagsService.isSidebar.subscribe(isToggle => {
-      this.isToggle = isToggle;
-    });
+    // Implementation with observables
+    // this.subscriptionToggle = this.menuFlagsService.isSidebar.subscribe(isToggle => {
+    //   this.isToggle = isToggle;
+    // });
+
+    this.store.subscribe( ({ toogle }) => {
+      this.isToggle = toogle;
+      // console.log('toogle', this.isToggle);
+     });
   }
 
   ngOnDestroy() {
